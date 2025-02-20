@@ -3,7 +3,7 @@ package onebot_v11_impl
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/arttnba3/Shigure-Bot/api/onebot/v11"
+	"github.com/arttnba3/Shigure-Bot/api/onebot/v11/event"
 )
 
 func RevokeOperators(cmd string, operators map[string]func(...any), params ...any) {
@@ -21,9 +21,9 @@ func RevokeHandlers(cmd string, handlers map[string]func(...any), params ...any)
 }
 
 func (bot *V11Bot) V11MessageEventHandler(eventData []byte, logger func(params ...any), handlers map[string]func(...any)) {
-	var base onebot_v11_api.InternalMessageBase
-	var privateMessageEvent onebot_v11_api.PrivateMessage
-	var groupMessageEvent onebot_v11_api.GroupMessage
+	var base onebot_v11_api_event.InternalMessageBase
+	var privateMessageEvent onebot_v11_api_event.PrivateMessage
+	var groupMessageEvent onebot_v11_api_event.GroupMessage
 
 	err := json.Unmarshal(eventData, &base)
 	if err != nil {
@@ -69,7 +69,7 @@ func (bot *V11Bot) V11MetaEventHandler(eventData []byte, logger func(params ...a
 }
 
 func (bot *V11Bot) ParseV11Event(eventData []byte, logger func(params ...any), handlers map[string]func(...any)) {
-	var base onebot_v11_api.EventBase
+	var base onebot_v11_api_event.EventBase
 
 	err := json.Unmarshal(eventData, &base)
 	if err != nil {

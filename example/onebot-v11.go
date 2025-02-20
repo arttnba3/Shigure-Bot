@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/arttnba3/Shigure-Bot/api/onebot/v11"
+	"github.com/arttnba3/Shigure-Bot/api/onebot/v11/event"
 	"github.com/arttnba3/Shigure-Bot/bot"
 	"github.com/arttnba3/Shigure-Bot/bot/onebot/v11"
 	"os"
@@ -20,7 +20,7 @@ func PrivateMessageHandler(params ...any) {
 	}
 
 	bot, ok1 := params[0].(*onebot_v11_impl.V11Bot)
-	message, ok2 := params[1].(onebot_v11_api.PrivateMessage)
+	message, ok2 := params[1].(onebot_v11_api_event.PrivateMessage)
 	if !ok1 || !ok2 {
 		Logger("Error: parameter type mismatch in PrivateMessageHandler")
 		return
@@ -41,7 +41,7 @@ func GroupMessageHandler(params ...any) {
 	}
 
 	bot, ok1 := params[0].(*onebot_v11_impl.V11Bot)
-	message, ok2 := params[1].(onebot_v11_api.GroupMessage)
+	message, ok2 := params[1].(onebot_v11_api_event.GroupMessage)
 	if !ok1 || !ok2 {
 		Logger("Error: parameter type mismatch in GroupMessageHandler")
 		return

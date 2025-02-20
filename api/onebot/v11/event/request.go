@@ -6,7 +6,7 @@
 // 		https://github.com/botuniverse/onebot-11/blob/master/event/request.md
 //
 
-package onebot_v11_api
+package onebot_v11_api_event
 
 type FriendAddRequest struct {
 	Time        int64  `json:"time"`

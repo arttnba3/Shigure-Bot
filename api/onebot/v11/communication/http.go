@@ -6,7 +6,7 @@
 // https://github.com/botuniverse/onebot-11/blob/master/communication/http.md
 //
 
-package onebot_v11_api
+package onebot_v11_api_comm
 
 type HTTPResponseBody struct {
 	Status  string      `json:"status"`

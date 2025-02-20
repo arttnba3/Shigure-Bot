@@ -6,7 +6,7 @@
 // 		https://github.com/botuniverse/onebot-11/blob/master/event/message.md
 //
 
-package onebot_v11_api
+package onebot_v11_api_event
 
 type PrivateMessageSender struct {
 	UserId   int64  `json:"user_id"`
@@ -63,9 +63,4 @@ type GroupMessage struct {
 	RawMessage  string             `json:"raw_message"`
 	Font        int32              `json:"font"`
 	Sender      GroupMessageSender `json:"sender"`
-}
-
-type MessageSegment struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data"`
 }

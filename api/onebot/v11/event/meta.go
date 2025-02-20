@@ -7,7 +7,7 @@
 // 		https://github.com/botuniverse/onebot-11/blob/master/event/meta.md
 //
 
-package onebot_v11_api
+package onebot_v11_api_event
 
 // EventBase
 // This struct ONLY indicates what an event should have

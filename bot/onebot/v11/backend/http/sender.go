@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/arttnba3/Shigure-Bot/api/onebot/v11"
+	"github.com/arttnba3/Shigure-Bot/api/onebot/v11/communication"
 	"io"
 	"net/http"
 	"sync"
@@ -78,7 +79,7 @@ func (sender *V11HTTPSender) GetRequestResult(uuid string) ([]byte, error) {
 }
 
 func (sender *V11HTTPSender) SendRequestAndGetResult(action string, params interface{}) ([]byte, error) {
-	var respBody onebot_v11_api.HTTPResponseBody
+	var respBody onebot_v11_api_comm.HTTPResponseBody
 
 	uuid := sender.NextUUID()
 	request := onebot_v11_api.BotAction{
