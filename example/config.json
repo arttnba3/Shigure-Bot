@@ -1,0 +1,9 @@
+{
+  "http_post": {
+    "host": "example.com",
+    "port": 11451
+  },
+  "http_server": {
+    "port": 19198
+  }
+}
