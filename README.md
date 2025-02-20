@@ -60,6 +60,25 @@ To configure a Shigure-Bot for an OneBot backend, we need to provide the configu
 }
 ```
 
+To handle events reported by OneBot-compatible backend, we need to prepare a function-table-like structure as the handler to the bot constructor. This should be a map like:
+
+```go
+func HandleExampleEvent(params ...any) {
+    bot, ok1 := params[0].(*onebot_v11_impl.V11Bot)
+	event, ok2 := params[1].(onebot_v11_api_event.ExampleEvent)
+	// replace ExampleEvent to your expected type, e.g., PrivateMessage
+	// refer to the OneBot v11 specification for details
+	//...
+}
+
+var handlers map[string]func(params ...any) = map[string]func(params ...any){
+    "example_key": HandleExampleEvent,
+    //...
+}
+```
+
+For the key of the map, it consists of two parts. The first part is the type, which can be `message`, `meta`, `notice`, `request`, and the second part is the subtype. An example key of handling received private message is `message_private`. You can refer to OneBot's docs and the [bot/onebot/v11/handler.go](bot/onebot/v11/handler.go) for details.
+
 You can refer to [example/onebot-v11.go](example/onebot-v11.go) for an example usage.
 
 ## Author

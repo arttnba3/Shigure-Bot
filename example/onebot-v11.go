@@ -55,8 +55,8 @@ func GroupMessageHandler(params ...any) {
 }
 
 var handlers map[string]func(params ...any) = map[string]func(params ...any){
-	"receive_private_message": PrivateMessageHandler,
-	"receive_group_message":   GroupMessageHandler,
+	"message_private": PrivateMessageHandler,
+	"message_group":   GroupMessageHandler,
 }
 
 func main() {

@@ -8,6 +8,15 @@
 
 package onebot_v11_api_event
 
+// not defined directly in specification
+
+type RequestEventBase struct {
+	Time        int64  `json:"time"`
+	SelfID      int64  `json:"self_id"`
+	PostType    string `json:"post_type"`
+	RequestType string `json:"request_type"`
+}
+
 type FriendAddRequest struct {
 	Time        int64  `json:"time"`
 	SelfId      int64  `json:"self_id"`

@@ -8,6 +8,16 @@
 
 package onebot_v11_api_event
 
+// internal but not defined in specification
+
+type NoticeEventBase struct {
+	Time       int64  `json:"time"`
+	SelfID     int64  `json:"self_id"`
+	PostType   string `json:"post_type"`
+	NoticeType string `json:"notice_type"`
+	SubType    string `json:"sub_type"`
+}
+
 // Group file upload
 
 type GroupFileInfo struct {

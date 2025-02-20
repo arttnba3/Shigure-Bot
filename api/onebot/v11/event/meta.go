@@ -17,6 +17,13 @@ type EventBase struct {
 	PostType string `json:"post_type"`
 }
 
+type MetaEventBase struct {
+	Time          int64  `json:"time"`
+	SelfId        int64  `json:"self_id"`
+	PostType      string `json:"post_type"`
+	MetaEventType string `json:"meta_event_type"`
+}
+
 type LifeCycle struct {
 	Time          int64  `json:"time"`
 	SelfId        int64  `json:"self_id"`
