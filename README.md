@@ -1,5 +1,7 @@
 <div align="center">
 
+<a href="https://smms.app/image/UZpg7XuikoI2VB9" target="_blank"><img src="https://s2.loli.net/2025/02/21/UZpg7XuikoI2VB9.jpg" width="256" height="256"></a>
+
 # 時雨 (Shigure-Bot)
 
 ⌚Yet another chatbot SDK that compatible for multiple chatbot backend implementations.🌧
@@ -83,7 +85,8 @@ You can refer to [example/onebot-v11.go](example/onebot-v11.go) for an example u
 
 ## Author
 
-arttnba3 <arttnba3@outlook.com>
+- Code: arttnba3 <arttnba3@outlook.com>
+- Illustration: Sumi Kiriko <kirikosumi@gmail.com>
 
 ## License
 
