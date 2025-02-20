@@ -30,7 +30,7 @@ func (bot *V11Bot) SendPrivateMsg(userId int64, message interface{}, autoEscape 
 
 	bot.Log(fmt.Sprintf("Send message to private [%v]: %v", userId, message))
 
-	respJson, err := bot.sender.SendRequestAndGetResult("send_private_msg", params)
+	respJson, err := bot.Sender.SendRequestAndGetResult("send_private_msg", params)
 	if err != nil {
 		bot.Log(fmt.Sprintf("Error occur while sending private message to user: %v, error: %v", userId, err.Error()))
 		return -1, err
@@ -54,7 +54,7 @@ func (bot *V11Bot) SendGroupMsg(groupId int64, message interface{}, autoEscape b
 
 	bot.Log(fmt.Sprintf("Send message to group [%v]: %v", groupId, message))
 
-	respJson, err := bot.sender.SendRequestAndGetResult("send_group_msg", params)
+	respJson, err := bot.Sender.SendRequestAndGetResult("send_group_msg", params)
 	if err != nil {
 		bot.Log(fmt.Sprintf("Error occur while sending msg to to group [%v], error: %v", groupId, err.Error()))
 		return -1, err
@@ -90,7 +90,7 @@ func (bot *V11Bot) SendMsg(messageType string, userId int64, groupId int64, mess
 
 		bot.Log(fmt.Sprintf("Send message to %v [%v]: %v", messageType, groupId, message))
 
-		respJson, err := bot.sender.SendRequestAndGetResult("send_msg", reqParam)
+		respJson, err := bot.Sender.SendRequestAndGetResult("send_msg", reqParam)
 		if err != nil {
 			bot.Log(fmt.Sprintf("Error occur while sending message, original param: %v, error: %v", reqParam, err.Error()))
 			return -1, err
@@ -117,7 +117,7 @@ func (bot *V11Bot) DeleteMsg(messageID int32) error {
 		MessageID: messageID,
 	}
 
-	_, err := bot.sender.SendRequestAndGetResult("delete_msg", reqParam)
+	_, err := bot.Sender.SendRequestAndGetResult("delete_msg", reqParam)
 	if err != nil {
 		bot.Log(fmt.Sprintf("Error occur while deleting message: %v, error: %v", messageID, err.Error()))
 		return err
@@ -131,7 +131,7 @@ func (bot *V11Bot) GetMsg(messageID int32) (interface{}, error) {
 		MessageID: messageID,
 	}
 
-	respJson, err := bot.sender.SendRequestAndGetResult("get_msg", reqParam)
+	respJson, err := bot.Sender.SendRequestAndGetResult("get_msg", reqParam)
 	if err != nil {
 		bot.Log(fmt.Sprintf("Error occur while getting message: %v, error: %v", messageID, err.Error()))
 		return nil, err

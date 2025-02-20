@@ -7,9 +7,10 @@ import (
 )
 
 type V11Bot struct {
-	receiver onebot_v11_api.V11ReceiverAPI
-	sender   onebot_v11_api.V11SenderAPI
+	Receiver onebot_v11_api.V11ReceiverAPI
+	Sender   onebot_v11_api.V11SenderAPI
 	Logger   func(params ...interface{})
+	Handlers map[string]func(...any)
 }
 
 type V11HTTPServerConfig struct {
@@ -26,11 +27,12 @@ type V11BotInfo struct {
 	HTTPPost   *V11HTTPPostConfig   `json:"http_post,omitempty"`
 }
 
-func NewV11Bot(configJson []byte, logger func(params ...any), handler func(rawData []byte)) (*V11Bot, error) {
+func NewV11Bot(configJson []byte, logger func(params ...any), handlers map[string]func(...any)) (*V11Bot, error) {
 	var receiver onebot_v11_api.V11ReceiverAPI = nil
 	var sender onebot_v11_api.V11SenderAPI = nil
 	var err error
 	var botInfo V11BotInfo
+	var bot V11Bot
 
 	err = json.Unmarshal(configJson, &botInfo)
 	if err != nil {
@@ -38,7 +40,13 @@ func NewV11Bot(configJson []byte, logger func(params ...any), handler func(rawDa
 	}
 
 	if botInfo.HTTPServer != nil {
-		receiver, err = onebot_v11_impl.NewV11HTTPReceiver(botInfo.HTTPServer.Port, logger, handler)
+		receiver, err = onebot_v11_impl.NewV11HTTPReceiver(
+			botInfo.HTTPServer.Port,
+			logger,
+			func(data []byte) {
+				bot.ParseV11Event(data, logger, handlers)
+			},
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -51,9 +59,10 @@ func NewV11Bot(configJson []byte, logger func(params ...any), handler func(rawDa
 		}
 	}
 
-	return &V11Bot{
-		sender:   sender,
-		receiver: receiver,
-		Logger:   logger,
-	}, nil
+	bot.Receiver = receiver
+	bot.Sender = sender
+	bot.Logger = logger
+	bot.Handlers = handlers
+
+	return &bot, nil
 }

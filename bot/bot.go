@@ -10,17 +10,17 @@ type ShigureBot struct {
 	handlers map[string]func(...any)
 }
 
-func NewShigureBot(botType string, configJson []byte, logger func(...any), handler func(rawData []byte)) (*ShigureBot, error) {
+func NewShigureBot(botType string, configJson []byte, logger func(...any), handlers map[string]func(...any)) (*ShigureBot, error) {
 	switch botType {
 	case "OneBot-V11":
-		bot, err := onebot_v11_impl.NewV11Bot(configJson, logger, handler) // TODO: switch from handler to handlers table
+		bot, err := onebot_v11_impl.NewV11Bot(configJson, logger, handlers)
 		if err != nil {
 			return nil, err
 		}
 
 		return &ShigureBot{
 			Bot:      bot,
-			handlers: nil,
+			handlers: handlers,
 		}, nil
 	default:
 		return nil, errors.New("unknown bot type [" + botType + "]")

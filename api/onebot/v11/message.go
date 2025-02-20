@@ -27,6 +27,14 @@ type GroupMessageSender struct {
 	Title    string `json:"title"`
 }
 
+// not explicitly defined in OneBot v11 specification
+type InternalMessageBase struct {
+	Time        int64  `json:"time"`
+	SelfId      int64  `json:"self_id"`
+	PostType    string `json:"post_type"`
+	MessageType string `json:"message_type"`
+}
+
 type PrivateMessage struct {
 	Time        int64                `json:"time"`
 	SelfId      int64                `json:"self_id"`

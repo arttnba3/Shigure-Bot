@@ -19,6 +19,11 @@ func (receiver *V11HTTPReceiver) Log(format string, params ...any) {
 }
 
 func (receiver *V11HTTPReceiver) HTTPServer(resp http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		resp.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
 	data, err := io.ReadAll(request.Body)
 	if err != nil {
 		resp.WriteHeader(http.StatusBadRequest)
@@ -44,12 +49,16 @@ func NewV11HTTPReceiver(port int, logger func(params ...any), handler func(rawDa
 		Logger:     logger,
 		Handler:    handler,
 	}
-	httpHandler := func(writer http.ResponseWriter, request *http.Request) { receiver.HTTPServer(writer, request) }
 	httpHost := fmt.Sprintf(":%d", receiver.listenPort)
 
-	http.HandleFunc("/", httpHandler)
+	http.HandleFunc(
+		"/",
+		func(writer http.ResponseWriter, request *http.Request) {
+			receiver.HTTPServer(writer, request)
+		},
+	)
 	go func() {
-		_ = http.ListenAndServe(httpHost, nil)
+		http.ListenAndServe(httpHost, nil)
 	}()
 
 	if logger != nil {

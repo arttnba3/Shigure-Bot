@@ -21,9 +21,9 @@ type V11HTTPSender struct {
 	uuidLock sync.Mutex
 }
 
-func (sender *V11HTTPSender) Log(format string, params ...any) {
+func (sender *V11HTTPSender) Log(params ...any) {
 	if sender.Logger != nil {
-		sender.Logger(fmt.Sprintf(format, params))
+		sender.Logger(params...)
 	}
 }
 
