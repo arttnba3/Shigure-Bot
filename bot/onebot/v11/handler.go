@@ -71,7 +71,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupFileUploadEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_upload", handlers, groupFileUploadEvent)
+		RevokeHandlers("notice_group_upload", handlers, bot, groupFileUploadEvent)
 		break
 	case "group_admin":
 		var groupAdminChangedEvent onebot_v11_api_event.GroupAdminChange
@@ -80,7 +80,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupAdminChangedEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_admin", handlers, groupAdminChangedEvent)
+		RevokeHandlers("notice_group_admin", handlers, bot, groupAdminChangedEvent)
 		break
 	case "group_decrease":
 		var groupMemberRemovedEvent onebot_v11_api_event.GroupMemberRemoved
@@ -89,7 +89,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupMemberRemovedEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_decrease", handlers, groupMemberRemovedEvent)
+		RevokeHandlers("notice_group_decrease", handlers, bot, groupMemberRemovedEvent)
 		break
 	case "group_increase":
 		var groupMemberAddedEvent onebot_v11_api_event.GroupMemberAdded
@@ -98,7 +98,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupMemberAddedEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_increase", handlers, groupMemberAddedEvent)
+		RevokeHandlers("notice_group_increase", handlers, bot, groupMemberAddedEvent)
 		break
 	case "group_ban":
 		var groupSpeakBannedEvent onebot_v11_api_event.GroupSpeakBanned
@@ -107,7 +107,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupSpeakBannedEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_ban", handlers, groupSpeakBannedEvent)
+		RevokeHandlers("notice_group_ban", handlers, bot, groupSpeakBannedEvent)
 		break
 	case "friend_add":
 		var friendAddedEvent onebot_v11_api_event.FriendAdded
@@ -116,7 +116,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as friendAddedEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_friend_add", handlers, friendAddedEvent)
+		RevokeHandlers("notice_friend_add", handlers, bot, friendAddedEvent)
 		break
 	case "group_recall":
 		var groupMessageRecalledEvent onebot_v11_api_event.GroupMessageRecalled
@@ -125,7 +125,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as groupMessageRecalledEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_group_recall", handlers, groupMessageRecalledEvent)
+		RevokeHandlers("notice_group_recall", handlers, bot, groupMessageRecalledEvent)
 		break
 	case "friend_recall":
 		var friendMessageRecalledEvent onebot_v11_api_event.FriendMessageRecalled
@@ -134,7 +134,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 			logger(fmt.Sprintf("Unable to parse as friendMessageRecalledEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("notice_friend_recall", handlers, friendMessageRecalledEvent)
+		RevokeHandlers("notice_friend_recall", handlers, bot, friendMessageRecalledEvent)
 		break
 	case "notify":
 		switch noticeBase.SubType {
@@ -145,7 +145,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 				logger(fmt.Sprintf("Unable to parse as groupChuoyichuoEvent, data: %v, error: %v", eventData, err))
 				return
 			}
-			RevokeHandlers("notice_notify_poke", handlers, groupChuoyichuoEvent)
+			RevokeHandlers("notice_notify_poke", handlers, bot, groupChuoyichuoEvent)
 			break
 		case "lucky_king":
 			var groupRedPacketKingOfLuckEvent onebot_v11_api_event.GroupRedPacketKingOfLuck
@@ -154,7 +154,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 				logger(fmt.Sprintf("Unable to parse as groupRedPacketKingOfLuckEvent, data: %v, error: %v", eventData, err))
 				return
 			}
-			RevokeHandlers("notice_notify_lucky_king", handlers, groupRedPacketKingOfLuckEvent)
+			RevokeHandlers("notice_notify_lucky_king", handlers, bot, groupRedPacketKingOfLuckEvent)
 			break
 		case "honor":
 			var groupMemberHonoursChangedEvent onebot_v11_api_event.GroupMemberHonoursChanged
@@ -163,7 +163,7 @@ func (bot *V11Bot) V11NoticeEventHandler(eventData []byte, logger func(params ..
 				logger(fmt.Sprintf("Unable to parse as groupMemberHonoursChangedEvent, data: %v, error: %v", eventData, err))
 				return
 			}
-			RevokeHandlers("notice_notify_honor", handlers, groupMemberHonoursChangedEvent)
+			RevokeHandlers("notice_notify_honor", handlers, bot, groupMemberHonoursChangedEvent)
 			break
 		default:
 			logger(fmt.Sprintf("Unknown notice sub_typee: %v", noticeBase.SubType))
@@ -193,7 +193,7 @@ func (bot *V11Bot) V11RequestEventHandler(eventData []byte, logger func(params .
 			logger(fmt.Sprintf("Unable to parse as friendAddedRequestEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("request_friend", handlers, friendAddedRequestEvent)
+		RevokeHandlers("request_friend", handlers, bot, friendAddedRequestEvent)
 		break
 	case "group":
 		var groupAddedRequestEvent onebot_v11_api_event.GroupAddRequest
@@ -202,7 +202,7 @@ func (bot *V11Bot) V11RequestEventHandler(eventData []byte, logger func(params .
 			logger(fmt.Sprintf("Unable to parse as groupAddedRequestEvent, data: %v, error: %v", eventData, err))
 			return
 		}
-		RevokeHandlers("request_group", handlers, groupAddedRequestEvent)
+		RevokeHandlers("request_group", handlers, bot, groupAddedRequestEvent)
 		break
 	}
 }
@@ -226,7 +226,7 @@ func (bot *V11Bot) V11MetaEventHandler(eventData []byte, logger func(params ...a
 			return
 		}
 
-		RevokeHandlers("request_lifecycle", handlers, lifeCycleEvent)
+		RevokeHandlers("request_lifecycle", handlers, bot, lifeCycleEvent)
 		break
 	case "heartbeat":
 		var heartBeatEvent onebot_v11_api_event.HeartBeat
@@ -237,7 +237,7 @@ func (bot *V11Bot) V11MetaEventHandler(eventData []byte, logger func(params ...a
 			return
 		}
 
-		RevokeHandlers("request_heartbeat", handlers, heartBeatEvent)
+		RevokeHandlers("request_heartbeat", handlers, bot, heartBeatEvent)
 		break
 	default:
 		logger(fmt.Sprintf("Unknown meta_event_type: %v", metaEventBase.MetaEventType))
